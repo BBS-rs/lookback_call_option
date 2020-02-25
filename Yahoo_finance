@@ -1,0 +1,39 @@
+from pandas_datareader import data
+from pandas.tseries.offsets import BDay
+import matplotlib.pyplot as plt
+import datetime as dt
+
+today = dt.datetime.today()
+run_date = (today - BDay(1)).strftime("%Y-%b-%d")
+start_date = "2019-02-02"
+
+# Importing stock price data:
+df = data.DataReader("AAPL", "yahoo", start_date, run_date)
+df = round(df[["Close"]],2)
+strike = round(df.at[run_date, "Close"], 2)
+max_price = df["Close"].max()
+
+# Information:
+print("1-Year USD Look-back max European call option:")
+print("Apple historical close prices from Yahoo Finance | NYSE.")
+print("Strike price = " + str(strike) + " as of " + str(start_date))
+print("Look-back max price = " + str(round(max_price, 2)) + " as of 2020-02-12")
+
+# Call Option Payoff:
+payoff = round(max(max_price - strike, 0), 2)
+print("Call option payoff = USD " + str(payoff))
+
+# Data-frame to Excel file:
+df.to_excel("Lookback_option.xlsx")
+
+# Plot results:
+plt.plot(figsize=(10,5))
+fig = plt.figure(1)
+fig.canvas.set_window_title('Apple Historical Price(s)')
+plt.plot(df["Close"], linewidth=1.3)
+plt.legend(['Close'], prop={'size': 8})
+plt.xlabel("Time")
+plt.ylabel("Price $")
+plt.grid()
+plt.tight_layout()
+plt.show()
