@@ -3,8 +3,6 @@ from pandas.tseries.offsets import BDay
 import matplotlib.pyplot as plt
 import datetime as dt
 
-#today = dt.datetime.today()
-#run_date = (today - BDay(1)).strftime("%Y-%b-%d")
 run_date = "2020-02-03"
 start_date = "2019-02-02"
 
