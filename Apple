@@ -3,8 +3,9 @@ from pandas.tseries.offsets import BDay
 import matplotlib.pyplot as plt
 import datetime as dt
 
-today = dt.datetime.today()
-run_date = (today - BDay(1)).strftime("%Y-%b-%d")
+#today = dt.datetime.today()
+#run_date = (today - BDay(1)).strftime("%Y-%b-%d")
+run_date = "2020-02-03"
 start_date = "2019-02-02"
 
 # Importing stock price data:
@@ -17,7 +18,7 @@ max_price = df["Close"].max()
 print("1-Year USD Look-back max European call option:")
 print("Apple historical close prices from Yahoo Finance | NYSE.")
 print("Strike price = " + str(strike) + " as of " + str(start_date))
-print("Look-back max price = " + str(round(max_price, 2)) + " as of 2020-02-12")
+print("Look-back max price = " + str(round(max_price, 2)))
 
 # Call Option Payoff:
 payoff = round(max(max_price - strike, 0), 2)
